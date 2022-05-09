@@ -1,10 +1,11 @@
 import React from "react";
 import chair from "../../../assets/images/chair.png";
+import './Banner.css';
 
 const Banner = () => {
     return (
-        <div className="hero mt-4 md:mt-24 bg-white">
-            <div className="hero-content flex-col lg:flex-row-reverse">
+        <div className="hero min-h-screen banner-doctor">
+            <div className="hero-content flex-col lg:flex-row-reverse md:mb-52">
                 <img
                     src={chair}
                     className="max-w-lg rounded-lg shadow-2xl"
@@ -15,11 +16,14 @@ const Banner = () => {
                         Your New Smile Starts Here
                     </h1>
                     <p className="py-6">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                        assumenda excepturi exercitationem quasi. In deleniti
-                        eaque aut repudiandae et a id nisi.
+                        Doctors Portals experienced team of professionals
+                        provides continuing and comprehensive health care for
+                        the individual and family across all ages, genders,
+                        diseases, and parts of the body.
                     </p>
-                    <button className="btn btn-primary text-white">Get Started</button>
+                    <button className="btn border-0 outline-0 px-4 text-white bg-gradient-to-r from-secondary to-primary">
+                        Get Started
+                    </button>
                 </div>
             </div>
         </div>
