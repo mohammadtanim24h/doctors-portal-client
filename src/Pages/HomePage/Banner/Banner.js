@@ -10,7 +10,7 @@ const Banner = () => {
                     className="max-w-lg rounded-lg shadow-2xl"
                     alt="chair"
                 />
-                <div>
+                <div className="md:mr-12">
                     <h1 className="text-5xl font-bold text-accent">
                         Your New Smile Starts Here
                     </h1>
@@ -19,7 +19,7 @@ const Banner = () => {
                         assumenda excepturi exercitationem quasi. In deleniti
                         eaque aut repudiandae et a id nisi.
                     </p>
-                    <button className="btn btn-primary">Get Started</button>
+                    <button className="btn btn-primary text-white">Get Started</button>
                 </div>
             </div>
         </div>
