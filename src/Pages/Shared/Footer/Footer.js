@@ -2,6 +2,8 @@ import React from "react";
 import footer from "../../../assets/images/footer.png";
 
 const Footer = () => {
+    const date = new Date();
+    const year = date.getFullYear();
     return (
         <footer
             style={{
@@ -56,7 +58,9 @@ const Footer = () => {
                 </div>
             </div>
             <div className="text-center mt-12">
-                <p>Copyright © 2022 - All right reserved by ACME Industries Ltd</p>
+                <p>
+                    Copyright © {year} - All rights reserved
+                </p>
             </div>
         </footer>
     );
