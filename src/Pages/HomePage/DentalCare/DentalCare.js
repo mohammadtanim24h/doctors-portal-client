@@ -8,11 +8,11 @@ const DentalCare = () => {
             <div className="hero-content flex-col lg:flex-row">
                 <img
                     src={treatment}
-                    className="w-80 md:w-1/3 rounded-lg shadow-2xl"
+                    className="w-80 md:w-1/3 rounded-lg md:shadow-2xl"
                     alt="treatment"
                 />
                 <div className="ml-8">
-                    <h1 className="text-5xl font-bold">
+                    <h1 className="text-3xl md:text-5xl font-bold">
                         Exceptional Dental <br /> Care, on Your Terms
                     </h1>
                     <p className="py-6">

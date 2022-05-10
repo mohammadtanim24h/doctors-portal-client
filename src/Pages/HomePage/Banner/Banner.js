@@ -13,7 +13,7 @@ const Banner = () => {
                     alt="chair"
                 />
                 <div className="md:mr-12">
-                    <h1 className="text-5xl font-bold text-accent">
+                    <h1 className="text-4xl md:text-5xl font-bold text-accent">
                         Your New Smile Starts Here
                     </h1>
                     <p className="py-6">

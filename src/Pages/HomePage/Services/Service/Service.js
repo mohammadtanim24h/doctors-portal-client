@@ -5,7 +5,7 @@ const Service = ({ service }) => {
         <div className="flex justify-center">
             <div className="card w-96 bg-base-100 shadow-xl">
                 <figure className="p-4">
-                    <img src={service.img} alt="Shoes" />
+                    <img src={service.img} alt="service" />
                 </figure>
                 <div className="card-body items-center text-center">
                     <h2 className="card-title">{service.name}</h2>
