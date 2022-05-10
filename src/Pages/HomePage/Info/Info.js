@@ -5,17 +5,17 @@ import phone from "../../../assets/icons/phone.svg";
 
 const Info = () => {
     return (
-        <div className="flex flex-col md:flex-row justify-center my-8">
-            <div className="bg-gradient-to-r from-secondary to-primary text-white w-80 md:w-1/4 px-8 py-6 mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
+        <div className="flex flex-col md:flex-row justify-center my-8 items-center">
+            <div className="bg-gradient-to-r from-secondary to-primary text-white w-80 md:w-1/4 px-4 md:px-8 py-4 md:py-8 mx-2 md:mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
                 <div className="mb-4 md:mb-0">
                     <img src={clock} alt="clock" />
                 </div>
                 <div className="ml-6">
                     <h3 className="text-xl font-medium">Opening Hours</h3>
-                    <p>Lorem Ipsum is simply dummy text of the pri</p>
+                    <p>We're Open 10 AM - 8 PM</p>
                 </div>
             </div>
-            <div className="bg-accent text-white w-80 md:w-1/4 px-8 py-6 mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
+            <div className="bg-accent text-white w-80 md:w-1/4 px-4 md:px-8 py-4 md:py-8 mx-2 md:mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
                 <div className="mb-4 md:mb-0">
                     <img src={marker} alt="marker" />
                 </div>
@@ -24,7 +24,7 @@ const Info = () => {
                     <p>Brooklyn, NY 10036, United States</p>
                 </div>
             </div>
-            <div className="bg-gradient-to-r from-secondary to-primary text-white w-80 md:w-1/4 px-8 py-6 mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
+            <div className="bg-gradient-to-r from-secondary to-primary text-white w-80 md:w-1/4 px-4 md:px-8 py-4 md:py-8 mx-2 md:mx-8 my-2 md:my-0 rounded-lg flex flex-col md:flex-row items-center">
                 <div className="mb-4 md:mb-0">
                     <img src={phone} alt="phone" />
                 </div>
