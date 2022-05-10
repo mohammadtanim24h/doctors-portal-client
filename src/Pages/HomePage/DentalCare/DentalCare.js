@@ -1,5 +1,6 @@
 import React from "react";
 import treatment from "../../../assets/images/treatment.png";
+import PrimaryButton from "../../Shared/PrimaryButton/PrimaryButton";
 
 const DentalCare = () => {
     return (
@@ -24,9 +25,7 @@ const DentalCare = () => {
                         health maintenance skills by disease prevention and
                         health education.
                     </p>
-                    <button className="btn border-0 outline-0 px-4 text-white bg-gradient-to-r from-secondary to-primary">
-                        Get Started
-                    </button>
+                    <PrimaryButton></PrimaryButton>
                 </div>
             </div>
         </div>

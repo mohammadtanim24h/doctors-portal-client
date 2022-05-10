@@ -1,5 +1,6 @@
 import React from "react";
 import chair from "../../../assets/images/chair.png";
+import PrimaryButton from "../../Shared/PrimaryButton/PrimaryButton";
 import './Banner.css';
 
 const Banner = () => {
@@ -21,9 +22,7 @@ const Banner = () => {
                         the individual and family across all ages, genders,
                         diseases, and parts of the body.
                     </p>
-                    <button className="btn border-0 outline-0 px-4 text-white bg-gradient-to-r from-secondary to-primary">
-                        Get Started
-                    </button>
+                    <PrimaryButton></PrimaryButton>
                 </div>
             </div>
         </div>
