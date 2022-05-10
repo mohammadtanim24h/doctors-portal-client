@@ -4,7 +4,7 @@ import appointment from '../../../assets/images/appointment.png';
 const ContactUs = () => {
     return (
         <div className='h-screen' style={{backgroundImage: `url(${appointment})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover'}}>
-            <h4 className='text-center text-secondary text-xl pt-24 lg:pt-48 font-bold'>Contact Us</h4>
+            <h4 className='text-center text-secondary text-xl pt-24 lg:pt-60 font-bold'>Contact Us</h4>
             <h2 className='text-center text-white text-4xl mb-4'>Stay Connected With Us</h2>
             <div className='flex justify-center items-center'>
                 <div>
