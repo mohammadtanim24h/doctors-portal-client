@@ -11,7 +11,7 @@ const AvailableAppointments = ({date}) => {
     }, [])
     return (
         <div>
-            <h3 className='text-xl text-secondary text-center'>Available Appointments on {format(date, "PP")}</h3>
+            <h3 className='text-xl text-secondary text-center'>Available Appointments on {date && format(date, "PP")}</h3> {/* eikhane date er value thaklei date ta format korte disi. karon jodi ami date select korar por abar oitate click kori tokhon date ta unselect hoye giye date er value undefined hoye jay and format korte giye error aisha pore. tai condition diye disi je date er value thaklei date format korbe nahole korbe na.*/}
             <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 my-16'>
                 {
                     services.map(service => <BookService key={service._id} service={service}></BookService>)
