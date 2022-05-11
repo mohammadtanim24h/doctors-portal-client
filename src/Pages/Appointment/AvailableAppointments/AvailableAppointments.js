@@ -6,7 +6,7 @@ import BookService from "./BookService/BookService";
 const AvailableAppointments = ({ date }) => {
     const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null);
-    // eikhane treatment state ta set kora hoise karon amake eikhan theke modal e data pathaite hobe. tai modal e data jate easily pathaite pari eijonno eikhane state ta set kore setTreatment ta BookService e pathai disi. jate BookService er label e click korle theatment state change hoy and modal eo updated data ta paoa jay. ar modal ta prottekta bookservice er moddhe rakha hoise na karon jodi prottekta service e rakha hoy tahole beshi service hoye gele shudhu shudhu modal toiri hobe. eijonno central ekta jaygay BookingModal component ta rakha hoise. ekhon je button e click kora hobe shei onujai modal er data dekhabe.
+    // eikhane treatment state ta set kora hoise karon amake eikhan theke modal e treatment data pathaite hobe. tai modal e data jate easily pathaite pari eijonno eikhane treatment state ta declare kore setTreatment ta BookService e pathai disi. jate BookService er bhitorer label e click korle treatment state change hoy and modal eo updated data ta paoa jay. ar modal ta prottekta bookservice er moddhe rakha hoise na karon jodi prottekta service e rakha hoy tahole beshi service hoye gele shudhu shudhu modal toiri hobe. eijonno central ekta jaygay BookingModal component ta rakha hoise. ekhon je button e click kora hobe shei onujai modal er data dekhabe.
     useEffect(() => {
         fetch("services.json")
             .then((res) => res.json())
