@@ -27,7 +27,7 @@ const BookService = ({ service, setTreatment }) => {
                         onClick={() => setTreatment(service)}
                         disabled={slots.length === 0 ? "true?" : ""}
                         htmlFor="booking-modal"
-                        className="btn btn-secondary rounded-lg text-white"
+                        className="btn bg-gradient-to-r from-secondary to-primary outline-0 border-0 rounded-lg text-white"
                     >
                         Book Appointment
                     </label>
