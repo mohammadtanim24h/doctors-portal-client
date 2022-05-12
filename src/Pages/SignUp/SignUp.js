@@ -3,6 +3,7 @@ import auth from "../../Firebase/firebase.init";
 import {
     useCreateUserWithEmailAndPassword,
     useSignInWithGoogle,
+    useUpdateProfile,
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading/Loading";
@@ -25,10 +26,14 @@ const SignUp = () => {
         error,
       ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
 
-    const onSubmit = (data) => {
+    // Update users profile hook
+    const [updateProfile, updating, updateError] = useUpdateProfile(auth);
+
+    const onSubmit = async (data) => {
         console.log(data);
         
-        createUserWithEmailAndPassword(data.email, data.password);
+        await createUserWithEmailAndPassword(data.email, data.password);
+        await updateProfile({ displayName: data.name });
     };
 
     // Firebase hooks google sign in
@@ -37,11 +42,11 @@ const SignUp = () => {
 
     useEffect(() => {
         if (user || googleUser) {
-            navigate("/")
+            navigate("/appointment")
         }
     }, [user, googleUser])
 
-    if (loading || googleLoading) {
+    if (loading || googleLoading || updating) {
         return <Loading></Loading>;
     }
     return (
@@ -146,6 +151,8 @@ const SignUp = () => {
                         </div>
                         
                         {error && <p className="text-center text-red-500 mb-3">{error.message}</p>}
+                        {updateError && <p className="text-center text-red-500 mb-3">{updateError.message}</p>}
+
 
                         <input
                             className="btn text-white w-full max-w-xs"

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import auth from "../../Firebase/firebase.init";
 import {
     useSignInWithEmailAndPassword,
@@ -30,9 +30,11 @@ const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
 
-    if (user || googleUser) {
-        navigate("/")
-    }
+    useEffect(() => {
+        if (user || googleUser) {
+            navigate("/")
+        }
+    }, [user || googleUser])
 
     if (loading || googleLoading) {
         return <Loading></Loading>;
