@@ -1,25 +1,43 @@
 import React from "react";
 import auth from "../../Firebase/firebase.init";
-import { useSignInWithGoogle } from "react-firebase-hooks/auth";
+import {
+    useSignInWithEmailAndPassword,
+    useSignInWithGoogle,
+} from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
+import Loading from "../Shared/Loading/Loading";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+    const navigate = useNavigate();
     // React hook form
     const {
         register,
         formState: { errors },
         handleSubmit,
     } = useForm();
+
+    // Firebase hooks sign in using email and password
+    const [signInWithEmailAndPassword, user, loading, error] =
+        useSignInWithEmailAndPassword(auth);
+
     const onSubmit = (data) => {
         console.log(data);
+        signInWithEmailAndPassword(data.email, data.password);
     };
 
     // Firebase hooks google sign in
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
-    if (googleUser) {
-        console.log(googleUser);
+
+    if (user || googleUser) {
+        navigate("/")
     }
+
+    if (loading || googleLoading) {
+        return <Loading></Loading>;
+    }
+    
     return (
         <div className="flex justify-center items-center md:mt-24">
             <div className="card w-96 shadow-xl">
@@ -77,8 +95,7 @@ const Login = () => {
                                     },
                                     minLength: {
                                         value: 6,
-                                        message:
-                                            "Must be 6 characters or long",
+                                        message: "Must be 6 characters or long",
                                     },
                                 })}
                             />
@@ -95,10 +112,19 @@ const Login = () => {
                                 )}
                             </label>
                         </div>
+                        
+                        {error && <p className="text-center text-red-500 mb-3">{error && error.message}</p>}
 
-                        <input className="btn text-white w-full max-w-xs" type="submit" value="Login" />
+                        <input
+                            className="btn text-white w-full max-w-xs"
+                            type="submit"
+                            value="Login"
+                        />
                     </form>
                     <div className="divider">OR</div>
+                    
+                    {googleError && <p className="text-center text-red-500 mb-3">{googleError.message}</p>}
+
                     <button
                         className="btn btn-outline"
                         onClick={() => signInWithGoogle()}
