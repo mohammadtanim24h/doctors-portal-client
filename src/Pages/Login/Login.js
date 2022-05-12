@@ -6,10 +6,13 @@ import {
 } from "react-firebase-hooks/auth";
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading/Loading";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 const Login = () => {
     const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
+    
     // React hook form
     const {
         register,
@@ -32,7 +35,7 @@ const Login = () => {
 
     useEffect(() => {
         if (user || googleUser) {
-            navigate("/")
+            navigate(from, { replace: true });
         }
     }, [user || googleUser])
 
