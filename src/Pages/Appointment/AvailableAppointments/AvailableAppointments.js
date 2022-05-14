@@ -7,11 +7,13 @@ const AvailableAppointments = ({ date }) => {
     const [services, setServices] = useState([]);
     const [treatment, setTreatment] = useState(null);
     // eikhane treatment state ta set kora hoise karon amake eikhan theke modal e treatment data pathaite hobe. tai modal e data jate easily pathaite pari eijonno eikhane treatment state ta declare kore setTreatment ta BookService e pathai disi. jate BookService er bhitorer label e click korle treatment state change hoy and modal eo updated data ta paoa jay. ar modal ta prottekta bookservice er moddhe rakha hoise na karon jodi prottekta service e rakha hoy tahole beshi service hoye gele shudhu shudhu modal toiri hobe. eijonno central ekta jaygay BookingModal component ta rakha hoise. ekhon je button e click kora hobe shei onujai modal er data dekhabe.
+    
+    const formattedDate = date && format(date, "PP");
     useEffect(() => {
-        fetch("http://localhost:5000/services")
+        fetch(`http://localhost:5000/available?date=${formattedDate}`)
             .then((res) => res.json())
             .then((data) => setServices(data));
-    }, []);
+    }, [formattedDate]);
     return (
         <div>
             <h3 className="text-xl text-secondary text-center">
