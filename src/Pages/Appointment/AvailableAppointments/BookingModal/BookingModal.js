@@ -1,22 +1,51 @@
 import { format } from "date-fns";
 import React from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
 import auth from "../../../../Firebase/firebase.init";
 
 const BookingModal = ({treatment, date, setTreatment}) => {
     const [user] = useAuthState(auth);
-    console.dir(user)
-    const {slots, name} = treatment;
+    const {_id, slots, name} = treatment;
+    const formattedDate = date && format(date, "PP");
     
     const handleBooking = e => {
         e.preventDefault();
         const slot = e.target.slot.value;
-        const name = e.target.name.value;
         const phone = e.target.phone.value;
-        const email = e.target.email.value;
-        
-        // to close the modal
-        setTreatment(null);
+
+        const booking = {
+            treatmentId: _id,
+            treatment: name,
+            date: formattedDate,
+            slot: slot,
+            patientEmail: user.email,
+            patientName: user.displayName,
+            phone: phone,
+        }
+
+        // Send data to backend
+        fetch("http://localhost:5000/booking", {
+            method: "POST",
+            headers: {
+                "content-type": "application/json"
+            },
+            body: JSON.stringify(booking)
+        })
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                if(data.success){
+                    toast.success(`Your Booking Was successfull! Appointment at ${formattedDate} ${slot}`);
+                }
+                else {
+                    toast.error(`You Already have an appointment on ${data?.booking?.date}, at ${data?.booking?.slot}`);
+                }
+
+                // to close the modal
+                setTreatment(null);
+            })
+
     }
     return (
         <div>
@@ -36,7 +65,7 @@ const BookingModal = ({treatment, date, setTreatment}) => {
                         {/* Time Slot Dropdown end */}
                         <input type="text" value={user?.displayName || ''} disabled className="input input-bordered w-full max-w-lg" required />
                         <input type="email" value={user?.email || ''} disabled name="email" className="input input-bordered w-full max-w-lg" required />
-                        <input type="number" name="phone" placeholder="Phone Number" className="input input-bordered w-full max-w-lg" required />
+                        <input type="number" name="phone" placeholder="Phone Number" className="input input-bordered w-full max-w-lg" />
                         <input type="submit" value="Book" className="btn btn-secondary w-full max-w-lg  px-8 py-2 text-white" />
                     </form>
                 </div>
