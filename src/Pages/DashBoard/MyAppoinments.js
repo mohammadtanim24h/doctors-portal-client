@@ -34,7 +34,7 @@ const MyAppoinments = () => {
 
     return (
         <div>
-            <h2 className="text-purple-500 text-2xl">My Appointments</h2>
+            <h2 className="text-slate-500 text-2xl">My Appointments</h2>
             <div className="overflow-x-auto mt-6">
                 <table className="table w-full">
                     {/* <!-- head --> */}
