@@ -1,8 +1,12 @@
+import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import auth from "../../Firebase/firebase.init";
 
 const MyAppoinments = () => {
+    const navigate = useNavigate();
     const [appointments, setAppoinments] = useState([]);
     const [user] = useAuthState(auth);
     const email = user.email;
@@ -13,7 +17,16 @@ const MyAppoinments = () => {
                 "authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if(res.status === 401 || res.status === 403) {
+                    toast.error('Unauthorized or Forbidden Access');
+                    signOut(auth);
+                    localStorage.removeItem("accessToken");
+                    navigate("/");
+                }
+
+                return res.json();
+            })
             .then((data) => {
                 setAppoinments(data);
             });
