@@ -1,16 +1,29 @@
+import { signOut } from "firebase/auth";
 import React from "react";
 import { useQuery } from "react-query";
+import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import auth from "../../Firebase/firebase.init";
 import Loading from "../Shared/Loading/Loading";
 import UserRow from "./UserRow";
 
 const Users = () => {
+    const navigate = useNavigate();
     const { data: users, isLoading, refetch } = useQuery("users", () =>
         fetch("http://localhost:5000/users", {
             method: "GET",
             headers: {
                 "authorization": `Bearer ${localStorage.getItem("accessToken")}`
             }
-        }).then((res) => res.json())
+        }).then((res) => {
+            if(res.status === 401 || res.status === 403) {
+                toast.error("Forbidden access. Please login again")
+                signOut(auth);
+                localStorage.removeItem("accessToken");
+                navigate("/");
+            }
+            return res.json();
+        })
     );
 
     if (isLoading) {
