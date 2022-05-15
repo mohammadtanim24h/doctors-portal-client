@@ -7,12 +7,13 @@ import {
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading/Loading";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const from = location.state?.from?.pathname || "/";
-    
+
     // React hook form
     const {
         register,
@@ -33,16 +34,18 @@ const Login = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
 
+    const [token] = useToken(user || googleUser);
+
     useEffect(() => {
-        if (user || googleUser) {
+        if (token) {
             navigate(from, { replace: true });
         }
-    }, [user || googleUser])
+    }, [token]);
 
     if (loading || googleLoading) {
         return <Loading></Loading>;
     }
-    
+
     return (
         <div className="flex justify-center items-center md:mt-24">
             <div className="card w-96 shadow-xl">
@@ -117,8 +120,12 @@ const Login = () => {
                                 )}
                             </label>
                         </div>
-                        
-                        {error && <p className="text-center text-red-500 mb-3">{error && error.message}</p>}
+
+                        {error && (
+                            <p className="text-center text-red-500 mb-3">
+                                {error && error.message}
+                            </p>
+                        )}
 
                         <input
                             className="btn text-white w-full max-w-xs"
@@ -126,12 +133,21 @@ const Login = () => {
                             value="Login"
                         />
                     </form>
-                    
-                    <p className="text-center">New to Doctors Portal? <Link to="/signup" className="text-secondary">Create an account</Link></p>
+
+                    <p className="text-center">
+                        New to Doctors Portal?{" "}
+                        <Link to="/signup" className="text-secondary">
+                            Create an account
+                        </Link>
+                    </p>
 
                     <div className="divider">OR</div>
-                    
-                    {googleError && <p className="text-center text-red-500 mb-3">{googleError.message}</p>}
+
+                    {googleError && (
+                        <p className="text-center text-red-500 mb-3">
+                            {googleError.message}
+                        </p>
+                    )}
 
                     <button
                         className="btn btn-outline"

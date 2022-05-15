@@ -44,7 +44,7 @@ const SignUp = () => {
 
     useEffect(() => {
         if (token) {
-            navigate("/appointment")
+            navigate("/appointment");
         }
     }, [token]);
 
