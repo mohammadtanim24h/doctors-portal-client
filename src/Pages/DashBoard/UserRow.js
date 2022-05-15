@@ -7,14 +7,21 @@ const UserRow = ({ user, index, refetch }) => {
         fetch(`http://localhost:5000/user/admin/${email}`, {
             method: "PUT",
             headers: {
-                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+                "authorization": `Bearer ${localStorage.getItem("accessToken")}`,
             },
         })
-            .then((res) => res.json())
+            .then((res) => {
+                if(res.status === 403){
+                    toast.error("You don't have required permission to make an admin");
+                }
+                return res.json();
+            })
             .then((data) => {
                 console.log(data);
-                toast.success(`Succefully made ${email} an admin`);
-                refetch();
+                if(data.modifiedCount > 0){
+                    toast.success(`Succefully made ${email} an admin`);
+                    refetch();
+                }
             });
     };
     return (
