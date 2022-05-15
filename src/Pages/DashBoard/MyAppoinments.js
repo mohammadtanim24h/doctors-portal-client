@@ -7,7 +7,12 @@ const MyAppoinments = () => {
     const [user] = useAuthState(auth);
     const email = user.email;
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${email}`)
+        fetch(`http://localhost:5000/booking?email=${email}`, {
+            method: "GET",
+            headers: {
+                "authorization": `Bearer ${localStorage.getItem("accessToken")}`
+            }
+        })
             .then((res) => res.json())
             .then((data) => {
                 setAppoinments(data);
