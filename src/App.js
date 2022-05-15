@@ -14,6 +14,7 @@ import MyAppoinments from "./Pages/DashBoard/MyAppoinments";
 import MyReview from "./Pages/DashBoard/MyReview";
 import MyHistory from "./Pages/DashBoard/MyHistory";
 import Users from "./Pages/DashBoard/Users";
+import RequireAdmin from "./Pages/Shared/RequireAdmin/RequireAdmin";
 
 function App() {
     return (
@@ -43,7 +44,7 @@ function App() {
                     <Route index element={<MyAppoinments></MyAppoinments>}></Route>
                     <Route path="myReview" element={<MyReview></MyReview>}></Route>
                     <Route path="myHistory" element={<MyHistory></MyHistory>}></Route>
-                    <Route path="users" element={<Users></Users>}></Route>
+                    <Route path="users" element={<RequireAdmin><Users></Users></RequireAdmin>}></Route>
                 </Route>
             </Routes>
             <ToastContainer />
