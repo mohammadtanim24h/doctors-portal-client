@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect } from "react";
 import auth from "../../Firebase/firebase.init";
 import {
     useCreateUserWithEmailAndPassword,
@@ -8,6 +8,7 @@ import {
 import { useForm } from "react-hook-form";
 import Loading from "../Shared/Loading/Loading";
 import { Link, useNavigate } from "react-router-dom";
+import useToken from "../../hooks/useToken";
 
 const SignUp = () => {
     const navigate = useNavigate();
@@ -19,19 +20,17 @@ const SignUp = () => {
     } = useForm();
 
     // Firebase hooks create user with email and password
-    const [
-        createUserWithEmailAndPassword,
-        user,
-        loading,
-        error,
-      ] = useCreateUserWithEmailAndPassword(auth, {sendEmailVerification: true});
+    const [createUserWithEmailAndPassword, user, loading, error] =
+        useCreateUserWithEmailAndPassword(auth, {
+            sendEmailVerification: true,
+        });
 
     // Update users profile hook
     const [updateProfile, updating, updateError] = useUpdateProfile(auth);
 
     const onSubmit = async (data) => {
         console.log(data);
-        
+
         await createUserWithEmailAndPassword(data.email, data.password);
         await updateProfile({ displayName: data.name });
     };
@@ -40,11 +39,14 @@ const SignUp = () => {
     const [signInWithGoogle, googleUser, googleLoading, googleError] =
         useSignInWithGoogle(auth);
 
+    // Token 
+    const [token] = useToken(user || googleUser);
+
     useEffect(() => {
-        if (user || googleUser) {
+        if (token) {
             navigate("/appointment")
         }
-    }, [user, googleUser])
+    }, [token]);
 
     if (loading || googleLoading || updating) {
         return <Loading></Loading>;
@@ -68,7 +70,7 @@ const SignUp = () => {
                                     required: {
                                         value: true,
                                         message: "Name is Required",
-                                    }
+                                    },
                                 })}
                             />
                             <label className="label">
@@ -79,7 +81,6 @@ const SignUp = () => {
                                 )}
                             </label>
                         </div>
-
 
                         {/* Email */}
                         <div className="form-control w-full max-w-xs">
@@ -149,10 +150,17 @@ const SignUp = () => {
                                 )}
                             </label>
                         </div>
-                        
-                        {error && <p className="text-center text-red-500 mb-3">{error.message}</p>}
-                        {updateError && <p className="text-center text-red-500 mb-3">{updateError.message}</p>}
 
+                        {error && (
+                            <p className="text-center text-red-500 mb-3">
+                                {error.message}
+                            </p>
+                        )}
+                        {updateError && (
+                            <p className="text-center text-red-500 mb-3">
+                                {updateError.message}
+                            </p>
+                        )}
 
                         <input
                             className="btn text-white w-full max-w-xs"
@@ -160,12 +168,21 @@ const SignUp = () => {
                             value="Sign Up"
                         />
                     </form>
-                    
-                    <p className="text-center">Already have an account? <Link to="/login" className="text-secondary">Login</Link></p>
+
+                    <p className="text-center">
+                        Already have an account?{" "}
+                        <Link to="/login" className="text-secondary">
+                            Login
+                        </Link>
+                    </p>
 
                     <div className="divider">OR</div>
-                    
-                    {googleError && <p className="text-center text-red-500 mb-3">{googleError.message}</p>}
+
+                    {googleError && (
+                        <p className="text-center text-red-500 mb-3">
+                            {googleError.message}
+                        </p>
+                    )}
 
                     <button
                         className="btn btn-outline"
