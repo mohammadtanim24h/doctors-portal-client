@@ -1,5 +1,7 @@
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useQuery } from "react-query";
+import Loading from "../Shared/Loading/Loading";
 
 const AddDoctor = () => {
     const {
@@ -8,10 +10,18 @@ const AddDoctor = () => {
         handleSubmit,
     } = useForm();
 
+    const { data: services, isLoading } = useQuery("services", () =>
+        fetch("http://localhost:5000/services").then((res) => res.json())
+    );
+
+    if (isLoading) {
+        return <Loading></Loading>;
+    }
+
     const onSubmit = async (data) => {
         console.log(data);
     };
-    
+
     return (
         <div>
             <h2 className="text-2xl text-slate-700">Add a new Doctor</h2>
@@ -76,31 +86,21 @@ const AddDoctor = () => {
                 </div>
 
                 {/* Specialty */}
-                <div className="form-control w-full max-w-xs">
+                <div className="form-control w-full max-w-xs mb-4">
                     <label className="label">
                         <span className="label-text">Specialty</span>
                     </label>
-                    <input
-                        type="text"
-                        placeholder="Specialty"
-                        className="input input-bordered w-full max-w-xs"
-                        {...register("specialty", {
-                            required: {
-                                value: true,
-                                message: "Specialty is Required",
-                            }
-                        })}
-                    />
-                    <label className="label">
-                        {errors.specialty?.type === "required" && (
-                            <span className="text-red-500">
-                                {errors.specialty.message}
-                            </span>
-                        )}
-                    </label>
+                    <select
+                        {...register("specialty")}
+                        className="select select-bordered w-full max-w-xs"
+                    >
+                        {services?.map(({ name, _id }) => (
+                            <option key={_id} value={name}>
+                                {name}
+                            </option>
+                        ))}
+                    </select>
                 </div>
-
-                
 
                 <input
                     className="btn text-white w-full max-w-xs"
