@@ -11,7 +11,7 @@ const MyAppoinments = () => {
     const [user] = useAuthState(auth);
     const email = user.email;
     useEffect(() => {
-        fetch(`http://localhost:5000/booking?email=${email}`, {
+        fetch(`https://pacific-taiga-84729.herokuapp.com/booking?email=${email}`, {
             method: "GET",
             headers: {
                 "authorization": `Bearer ${localStorage.getItem("accessToken")}`

@@ -25,7 +25,7 @@ const BookingModal = ({treatment, date, setTreatment, refetch}) => {
         }
 
         // Send data to backend
-        fetch("http://localhost:5000/booking", {
+        fetch("https://pacific-taiga-84729.herokuapp.com/booking", {
             method: "POST",
             headers: {
                 "content-type": "application/json"

@@ -10,7 +10,7 @@ import UserRow from "./UserRow";
 const Users = () => {
     const navigate = useNavigate();
     const { data: users, isLoading, refetch } = useQuery("users", () =>
-        fetch("http://localhost:5000/users", {
+        fetch("https://pacific-taiga-84729.herokuapp.com/users", {
             method: "GET",
             headers: {
                 "authorization": `Bearer ${localStorage.getItem("accessToken")}`
