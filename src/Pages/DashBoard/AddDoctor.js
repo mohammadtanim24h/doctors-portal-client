@@ -86,7 +86,7 @@ const AddDoctor = () => {
                 </div>
 
                 {/* Specialty */}
-                <div className="form-control w-full max-w-xs mb-4">
+                <div className="form-control w-full max-w-xs">
                     <label className="label">
                         <span className="label-text">Specialty</span>
                     </label>
@@ -100,6 +100,30 @@ const AddDoctor = () => {
                             </option>
                         ))}
                     </select>
+                </div>
+
+                {/* Image field */}
+                <div className="form-control w-full max-w-xs">
+                    <label className="label">
+                        <span className="label-text">Image</span>
+                    </label>
+                    <input
+                        type="file"
+                        className="input input-bordered w-full max-w-xs"
+                        {...register("image", {
+                            required: {
+                                value: true,
+                                message: "Image is Required",
+                            },
+                        })}
+                    />
+                    <label className="label">
+                        {errors.image?.type === "required" && (
+                            <span className="text-red-500">
+                                {errors.image.message}
+                            </span>
+                        )}
+                    </label>
                 </div>
 
                 <input
