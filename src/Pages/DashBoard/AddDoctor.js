@@ -18,8 +18,40 @@ const AddDoctor = () => {
         return <Loading></Loading>;
     }
 
+    /**
+     * 3 Ways to store images
+     * 1. Third party storage eg. Imgbb (free open public storage is okay for practice project)
+     * 2. My own storage in my own server (file system). amar server e kuno ekta file system thakbe sheta access kore store korte hobe
+     * 3. Database eg. Mongodb
+     * 
+     * YUP: to validate file. // Search YUP file validation for react hook form
+    */
+
+    const imageStorageKey = '430227413d25713dc9257dcf7feacc7e';
+
     const onSubmit = async (data) => {
-        console.log(data);
+        const image = data.image[0];
+        const formData = new FormData();
+        formData.append('image', image);
+        const url = `https://api.imgbb.com/1/upload?key=${imageStorageKey}`;
+        fetch(url, {
+            method: "POST",
+            body: formData
+        })
+        .then(res => res.json())
+        .then(result => {
+            if(result.success){
+                const img = result.data.url;
+                const doctor = {
+                    name: data.name,
+                    email: data.email,
+                    specialty: data.specialty,
+                    img: img,
+                }
+                // send doctor data to my database
+            }
+            console.log('imgbb result', result);
+        })
     };
 
     return (
