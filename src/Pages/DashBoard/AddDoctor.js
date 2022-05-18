@@ -67,7 +67,7 @@ const AddDoctor = () => {
                                 reset();
                             }
                             else {
-                                toast.error("Failded to add the doctor");
+                                toast.error("Failed to add the doctor");
                             }
                         });
                 }
