@@ -1,7 +1,7 @@
 import { signOut } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import auth from "../../Firebase/firebase.init";
 
@@ -11,15 +11,20 @@ const MyAppoinments = () => {
     const [user] = useAuthState(auth);
     const email = user.email;
     useEffect(() => {
-        fetch(`https://pacific-taiga-84729.herokuapp.com/booking?email=${email}`, {
-            method: "GET",
-            headers: {
-                "authorization": `Bearer ${localStorage.getItem("accessToken")}`
+        fetch(
+            `https://pacific-taiga-84729.herokuapp.com/booking?email=${email}`,
+            {
+                method: "GET",
+                headers: {
+                    authorization: `Bearer ${localStorage.getItem(
+                        "accessToken"
+                    )}`,
+                },
             }
-        })
+        )
             .then((res) => {
-                if(res.status === 401 || res.status === 403) {
-                    toast.error('Unauthorized or Forbidden Access');
+                if (res.status === 401 || res.status === 403) {
+                    toast.error("Unauthorized or Forbidden Access");
                     signOut(auth);
                     localStorage.removeItem("accessToken");
                     navigate("/");
@@ -45,6 +50,7 @@ const MyAppoinments = () => {
                             <th>Date</th>
                             <th>Time</th>
                             <th>Treatment</th>
+                            <th>Payment</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -55,6 +61,18 @@ const MyAppoinments = () => {
                                 <td>{a.date}</td>
                                 <td>{a.slot}</td>
                                 <td>{a.treatment}</td>
+                                <td>
+                                    {a.price && !a.paid && (
+                                        <Link to={`payment/${a._id}`}>
+                                            <button className="btn btn-sm bg-green-500 outline-0 border-0 hover:bg-green-500 text-white px-4">
+                                                Pay
+                                            </button>
+                                        </Link>
+                                    )}
+                                    {a.price && a.paid && (
+                                        <p className="text-green-600">Paid</p>
+                                    )}
+                                </td>
                             </tr>
                         ))}
                     </tbody>
