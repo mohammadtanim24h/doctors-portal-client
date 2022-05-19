@@ -1,7 +1,7 @@
 import React from "react";
 
 const BookService = ({ service, setTreatment }) => {
-    const { name, slots } = service;
+    const { name, slots, price } = service;
     return (
         <div className="card lg:max-w-lg bg-base-100 shadow-xl">
             <div className="card-body">
@@ -19,6 +19,7 @@ const BookService = ({ service, setTreatment }) => {
                     {slots?.length} {slots?.length > 1 ? "slots" : "slot"}{" "}
                     available
                 </p>
+                <p className="text-center">Price: ${price}</p>
                 <div className="card-actions justify-center">
                     {/* another way to do disabled : 
                         disabled={slots.length === 0} karon jokhon slots.length 0 tokhon slots.length === 0 ei condition ta true return kore and button er disabled true hoye jay.
