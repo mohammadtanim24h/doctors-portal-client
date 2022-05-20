@@ -64,7 +64,7 @@ const MyAppoinments = () => {
                                 <td>
                                     {a.price && !a.paid && (
                                         <Link to={`payment/${a._id}`}>
-                                            <button className="btn btn-sm bg-green-500 outline-0 border-0 hover:bg-green-500 text-white px-4">
+                                            <button className="btn btn-sm bg-green-500 outline-0 border-0 hover:bg-green-600 text-white px-4">
                                                 Pay
                                             </button>
                                         </Link>
