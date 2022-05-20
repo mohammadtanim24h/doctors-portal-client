@@ -1,16 +1,18 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
+import Loading from "../Shared/Loading/Loading";
 
 const CheckoutForm = ({ appointment }) => {
     const stripe = useStripe();
     const elements = useElements();
     const [cardError, setCardError] = useState("");
     const [success, setSuccess] = useState("");
+    const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState("");
     const [clientSecret, setClientSecret] = useState("");
 
-    const { price, patientName, patientEmail } = appointment;
+    const { _id, price, patientName, patientEmail } = appointment;
 
     useEffect(() => {
         fetch("http://localhost:5000/create-payment-intent", {
@@ -54,6 +56,7 @@ const CheckoutForm = ({ appointment }) => {
 
         setSuccess("");
 
+        setProcessing(true);
         // confirm card payment
         const { paymentIntent, error: intentError } =
             await stripe.confirmCardPayment(clientSecret, {
@@ -67,12 +70,32 @@ const CheckoutForm = ({ appointment }) => {
             });
         if (intentError) {
             setCardError(intentError?.message);
+            setProcessing(false);
         } else {
             setCardError("");
             setTransactionId(paymentIntent.id);
             toast.success("Payment Successful");
             setSuccess("Congrats! Your payment is completed.");
         }
+
+        // store payment info on database
+        const payment = {
+            appointment: _id,
+            transactionId: paymentIntent.id,
+        }
+        fetch(`http://localhost:5000/booking/${_id}`, {
+            method: "PATCH",
+            headers: {
+                "content-type": "application/json",
+                authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            },
+            body: JSON.stringify(payment)
+        })
+            .then((res) => res.json())
+            .then((data) => {
+                setProcessing(false);
+                console.log(data);
+            });
     };
     return (
         <>
@@ -105,7 +128,10 @@ const CheckoutForm = ({ appointment }) => {
             {success && (
                 <div>
                     <p className="text-green-600 my-2">{success}</p>
-                    <p>Transaction Id: <span className="text-orange-600">{transactionId}</span></p>
+                    <p>
+                        Transaction Id:{" "}
+                        <span className="text-orange-600">{transactionId}</span>
+                    </p>
                 </div>
             )}
         </>
