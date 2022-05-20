@@ -11,7 +11,7 @@ const stripePromise = loadStripe('pk_test_51L1AmbEFg4BVPfTT55g3N3L048Xzi8XVPjRqX
 
 const Payment = () => {
     const { id } = useParams();
-    const url = `http://localhost:5000/booking/${id}`;
+    const url = `https://pacific-taiga-84729.herokuapp.com/booking/${id}`;
     const { data: appointment, isLoading } = useQuery(["booking", id], () =>
         fetch(url, {
             headers: {

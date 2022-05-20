@@ -13,7 +13,7 @@ const AddDoctor = () => {
     } = useForm();
 
     const { data: services, isLoading } = useQuery("services", () =>
-        fetch("http://localhost:5000/services").then((res) => res.json())
+        fetch("https://pacific-taiga-84729.herokuapp.com/services").then((res) => res.json())
     );
 
     if (isLoading) {
@@ -50,7 +50,7 @@ const AddDoctor = () => {
                         specialty: data.specialty,
                         img: img,
                     };
-                    fetch("http://localhost:5000/doctor", {
+                    fetch("https://pacific-taiga-84729.herokuapp.com/doctor", {
                         method: "POST",
                         headers: {
                             "content-type": "application/json",

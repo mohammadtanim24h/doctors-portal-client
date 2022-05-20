@@ -11,7 +11,7 @@ const ManageDoctors = () => {
         isLoading,
         refetch,
     } = useQuery("doctors", () =>
-        fetch("http://localhost:5000/doctors", {
+        fetch("https://pacific-taiga-84729.herokuapp.com/doctors", {
             method: "GET",
             headers: {
                 authorization: `Bearer ${localStorage.getItem("accessToken")}`,
