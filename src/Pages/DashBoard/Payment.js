@@ -24,14 +24,12 @@ const Payment = () => {
         return <Loading></Loading>;
     }
 
-    console.log(appointment);
-
     return (
         <div className="flex justify-around flex-col lg:flex-row-reverse gap-5 mt-12">
-            <div class="card w-80 md:w-2/5 bg-base-100 shadow-xl">
-                <div class="card-body">
+            <div className="card w-80 md:w-2/5 bg-base-100 shadow-xl">
+                <div className="card-body">
                     <p className="font-bold">Hello {appointment.patientName}!</p>
-                    <h2 class="card-title">Please Pay for {appointment.treatment}</h2>
+                    <h2 className="card-title">Please Pay for {appointment.treatment}</h2>
                     <p>
                         Your Appointment: {" "}
                         <span className="text-orange-600">
@@ -45,8 +43,8 @@ const Payment = () => {
                     <p>Please pay <span className="text-orange-600">${appointment.price}</span></p>
                 </div>
             </div>
-            <div class="card w-80 md:w-2/5 bg-base-100 shadow-xl">
-                <div class="card-body">
+            <div className="card w-80 md:w-2/5 bg-base-100 shadow-xl">
+                <div className="card-body">
                 <Elements stripe={stripePromise}>
                     <CheckoutForm />
                 </Elements>
